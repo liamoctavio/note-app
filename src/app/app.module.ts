@@ -11,7 +11,8 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { TodoComponent } from './todo/todo.component';
-import { NavbarComponent } from './navbar/navbar.component'; // Importa el componente Navbar
+import { NavbarComponent } from './navbar/navbar.component';
+import { ProfileComponent } from './profile/profile.component'; // Importa el componente Navbar
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NavbarComponent } from './navbar/navbar.component'; // Importa el compo
     LoginComponent,
     RegisterComponent,
     TodoComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,30 @@
+<div class="profile-container">
+    <div class="profile-form-container">
+      <h2>Editar Perfil</h2>
+      <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre</label>
+          <input id="name" class="form-control" formControlName="name" [attr.disabled]="!isEditing ? true : null" />
+        </div>
+  
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo Electrónico</label>
+          <input id="email" class="form-control" formControlName="email" [attr.disabled]="!isEditing ? true : null" />
+        </div>
+  
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input id="password" class="form-control" formControlName="password" [attr.disabled]="!isEditing ? true : null" type="password" />
+        </div>
+  
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+          <input id="confirmPassword" class="form-control" formControlName="confirmPassword" [attr.disabled]="!isEditing ? true : null" type="password" />
+        </div>
+  
+        <button *ngIf="!isEditing" type="button" class="btn btn-primary" (click)="toggleEdit()">Editar</button>
+        <button *ngIf="isEditing" type="submit" class="btn btn-success">Guardar Cambios</button>
+      </form>
+    </div>
+  </div>
+  

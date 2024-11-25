@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';  // Importar el Router
-
+import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,10 +10,16 @@ import { Router } from '@angular/router';  // Importar el Router
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   loginFailed = false; // Para mostrar un mensaje de error si las credenciales no son válidas
-
+  username: string = ''; // Nombre de usuario
   constructor(
     private fb: FormBuilder,
-    private router: Router) {}
+    private router: Router,
+    private userService: UserService) {}
+
+  onLogin(): void {
+    this.userService.login(this.username);
+    this.userService.checkLoginStatus();
+  }  
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
