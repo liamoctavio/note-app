@@ -1,0 +1,81 @@
+/* Asegura que el cuerpo y el contenedor de la página ocupen toda la pantalla */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Contenedor principal de la página, con imagen de fondo */
+  .login-container {
+    height: 100vh; /* Asegura que ocupe toda la altura de la ventana */
+    background-image: url('/Assets/login.avif'); /* Imagen de fondo */
+    background-size: cover; /* La imagen cubre toda el área */
+    background-position: center; /* Centra la imagen */
+    display: flex; /* Usamos Flexbox para centrar el formulario */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+  }
+  
+  /* Estilo del formulario */
+  .login-form {
+    background-color: rgba(255, 255, 255, 0.85); /* Fondo blanco con opacidad */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px; /* Tamaño máximo para que no se estire demasiado */
+  }
+  
+  /* Títulos */
+  .card-body h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Estilo para los inputs */
+  .form-control {
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  
+  /* Estilo para los botones */
+  .d-grid .btn {
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .d-grid .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  .d-grid .btn-primary:disabled {
+    background-color: #c0c0c0; /* Botón deshabilitado */
+  }
+  
+  .d-grid .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Mensajes de error */
+  .text-danger {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+  }
+  
+  /* Para dispositivos móviles */
+  @media (max-width: 576px) {
+    .login-form {
+      width: 90%;
+    }
+  }
+  

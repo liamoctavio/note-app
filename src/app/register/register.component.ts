@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -11,9 +13,11 @@ export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
 
   registrationSuccess: boolean = false;
+  errorMessage: string = '';
 
 
-  constructor(private fb: FormBuilder) {}
+
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -36,12 +40,19 @@ export class RegisterComponent implements OnInit {
 
         this.registrationSuccess = true;
         this.registerForm.reset();
+        setTimeout(() => {
+          this.router.navigate(['/login']); // Redirigir al login después del registro
+        }, 3000); // Esperar 3 segundos antes de redirigir
       } else {
-        alert('Las contraseñas no coinciden');
+        this.errorMessage = 'El correo electrónico ya está registrado';
+        this.registrationSuccess = false;
+        setTimeout(() => this.errorMessage = '', 3000); // Mensaje desaparece después de 3 segundos
       }
     } else {
-      alert('Por favor, completa todos los campos correctamente.');
-    }
+      this.errorMessage = 'Por favor, completa todos los campos correctamente';
+      this.registrationSuccess = false;
+      setTimeout(() => this.errorMessage = '', 3000); // Mensaje desaparece después de 3 segundos
+      }
   }
 
 }

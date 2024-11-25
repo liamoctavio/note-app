@@ -1,48 +1,46 @@
-<div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6 col-lg-5">
-        <div class="card shadow">
-          <div class="card-body">
-            <h3 class="text-center mb-4">Inicio de Sesión</h3>
-            <form [formGroup]="loginForm" (ngSubmit)="login()">
-              <!-- Correo Electrónico -->
-              <div class="mb-3">
-                <label for="email" class="form-label">Correo Electrónico</label>
-                <input
-                  type="email"
-                  id="email"
-                  class="form-control"
-                  formControlName="email"
-                  placeholder="Ingrese su correo electrónico"
-                />
-                <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
-                  Correo inválido o requerido.
-                </div>
+<div class="login-container">
+    <div class="login-form">
+      <div class="card shadow">
+        <div class="card-body">
+          <h3 class="text-center mb-4">Inicio de Sesión</h3>
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <!-- Correo Electrónico -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo Electrónico</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control"
+                formControlName="email"
+                placeholder="Ingrese su correo electrónico"
+              />
+              <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+                Correo inválido o requerido.
               </div>
+            </div>
   
-              <!-- Contraseña -->
-              <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input
-                  type="password"
-                  id="password"
-                  class="form-control"
-                  formControlName="password"
-                  placeholder="Ingrese su contraseña"
-                />
-                <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
-                  La contraseña es requerida.
-                </div>
+            <!-- Contraseña -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input
+                type="password"
+                id="password"
+                class="form-control"
+                formControlName="password"
+                placeholder="Ingrese su contraseña"
+              />
+              <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+                La contraseña es requerida.
               </div>
+            </div>
   
-              <!-- Botón de Login -->
-              <div class="d-grid">
-                <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
-                  Iniciar Sesión
-                </button>
-              </div>
-            </form>
-          </div>
+            <!-- Botón de Login -->
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+                Iniciar Sesión
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
