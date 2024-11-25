@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsModule
-import { FormsModule } from '@angular/forms';  // Importa FormsModule
+import { ReactiveFormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';  
 
 
 
@@ -13,7 +13,7 @@ import { RegisterComponent } from './register/register.component';
 import { TodoComponent } from './todo/todo.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component'; // Importa el componente Navbar
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component'; 
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule  // Asegúrate de incluir FormsModule aquí 
+    FormsModule  
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -32,7 +32,6 @@
     border: none;
   }
   
-  /* Fondo de la sección del perfil */
 .profile-container {
     background-image: url('/Assets/editar.avif'); 
     background-size: cover; 
@@ -45,16 +44,14 @@
     padding: 20px;
   }
   
-  /* Estilos del formulario para que sea legible */
   .profile-form-container {
-    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco translúcido */
-    border-radius: 10px; /* Bordes redondeados */
+    background-color: rgba(255, 255, 255, 0.8); 
+    border-radius: 10px; 
     padding: 30px;
     width: 100%;
-    max-width: 600px; /* Limitar el tamaño máximo */
+    max-width: 600px; 
   }
   
-  /* Botones de editar y guardar */
   button {
     margin-top: 20px;
   }

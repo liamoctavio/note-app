@@ -1,4 +1,3 @@
-/* Asegura que el cuerpo y el contenedor de la página ocupen toda la pantalla */
 html, body {
     height: 100%;
     margin: 0;
@@ -6,19 +5,18 @@ html, body {
     font-family: Arial, sans-serif;
   }
   
-  /* Contenedor principal de la página, con imagen de fondo */
   .login-container {
-    height: 100vh; /* Asegura que ocupe toda la altura de la ventana */
-    background-image: url('/Assets/login.avif'); /* Imagen de fondo */
-    background-size: cover; /* La imagen cubre toda el área */
-    background-position: center; /* Centra la imagen */
-    display: flex; /* Usamos Flexbox para centrar el formulario */
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    height: 100vh; 
+    background-image: url('/Assets/login.avif'); 
+    background-size: cover; 
+    background-position: center; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    background-repeat: no-repeat; 
   }
   
-  /* Estilo del formulario */
+
   .login-form {
     background-color: rgba(255, 255, 255, 0.85); /* Fondo blanco con opacidad */
     padding: 30px;
@@ -28,14 +26,12 @@ html, body {
     max-width: 400px; /* Tamaño máximo para que no se estire demasiado */
   }
   
-  /* Títulos */
   .card-body h3 {
     font-size: 24px;
     font-weight: bold;
     color: #333;
   }
   
-  /* Estilo para los inputs */
   .form-control {
     border-radius: 5px;
     padding: 10px;
@@ -43,7 +39,6 @@ html, body {
     margin-bottom: 15px;
   }
   
-  /* Estilo para los botones */
   .d-grid .btn {
     padding: 12px;
     font-size: 16px;
@@ -58,7 +53,7 @@ html, body {
   }
   
   .d-grid .btn-primary:disabled {
-    background-color: #c0c0c0; /* Botón deshabilitado */
+    background-color: #c0c0c0; 
   }
   
   .d-grid .btn:hover {

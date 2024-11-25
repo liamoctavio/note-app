@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.registerForm.valid) { // No es necesario el operador `?.`
+    if (this.registerForm.valid) { 
       const { name, email, password, confirmPassword } = this.registerForm.value;
 
       if (password === confirmPassword) {
