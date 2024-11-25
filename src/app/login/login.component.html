@@ -1,51 +1,49 @@
-<div class="container">
+<div class="container mt-5">
     <div class="row justify-content-center">
-      <div class="col-md-6">
-        <h2 class="text-center my-4">Iniciar Sesión</h2>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          
-          <!-- Campo de correo electrónico -->
-          <div class="mb-3">
-            <label for="email" class="form-label">Correo Electrónico</label>
-            <input
-              id="email"
-              type="email"
-              class="form-control"
-              formControlName="email"
-              [ngClass]="{'is-invalid': loginForm.controls['email'].invalid && loginForm.controls['email'].touched}"
-            />
-            <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched" class="invalid-feedback">
-              <div *ngIf="loginForm.controls['email'].errors?.['required']">El correo electrónico es obligatorio.</div>
-              <div *ngIf="loginForm.controls['email'].errors?.['email']">Ingresa un correo electrónico válido.</div>
-            </div>
-          </div>
+      <div class="col-md-6 col-lg-5">
+        <div class="card shadow">
+          <div class="card-body">
+            <h3 class="text-center mb-4">Inicio de Sesión</h3>
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+              <!-- Correo Electrónico -->
+              <div class="mb-3">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input
+                  type="email"
+                  id="email"
+                  class="form-control"
+                  formControlName="email"
+                  placeholder="Ingrese su correo electrónico"
+                />
+                <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+                  Correo inválido o requerido.
+                </div>
+              </div>
   
-          <!-- Campo de contraseña -->
-          <div class="mb-3">
-            <label for="password" class="form-label">Contraseña</label>
-            <input
-              id="password"
-              type="password"
-              class="form-control"
-              formControlName="password"
-              [ngClass]="{'is-invalid': loginForm.controls['password'].invalid && loginForm.controls['password'].touched}"
-            />
-            <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched" class="invalid-feedback">
-              <div *ngIf="loginForm.controls['password'].errors?.['required']">La contraseña es obligatoria.</div>
-              <div *ngIf="loginForm.controls['password'].errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</div>
-            </div>
-          </div>
+              <!-- Contraseña -->
+              <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input
+                  type="password"
+                  id="password"
+                  class="form-control"
+                  formControlName="password"
+                  placeholder="Ingrese su contraseña"
+                />
+                <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+                  La contraseña es requerida.
+                </div>
+              </div>
   
-          <!-- Mensaje de error de login -->
-          <div *ngIf="loginFailed" class="alert alert-danger">
-            Credenciales incorrectas. Por favor, intenta nuevamente.
+              <!-- Botón de Login -->
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+                  Iniciar Sesión
+                </button>
+              </div>
+            </form>
           </div>
-  
-          <!-- Botón de submit -->
-          <div class="text-center">
-            <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Iniciar Sesión</button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>

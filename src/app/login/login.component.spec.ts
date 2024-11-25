@@ -31,7 +31,7 @@ describe('LoginComponent', () => {
 
     component.loginForm.controls['email'].setValue('wrong@example.com');
     component.loginForm.controls['password'].setValue('wrongpassword');
-    component.onSubmit();
+    component.login();
 
     expect(component.loginFailed).toBe(true);
   });

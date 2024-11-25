@@ -10,6 +10,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
 
+  registrationSuccess: boolean = false;
+
+
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -22,11 +25,17 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.registerForm?.valid) {  // Asegúrate de que el formulario no sea null
+    if (this.registerForm.valid) { // No es necesario el operador `?.`
       const { name, email, password, confirmPassword } = this.registerForm.value;
+
       if (password === confirmPassword) {
-        localStorage.setItem('user', JSON.stringify({ name, email, password }));
-        alert('Registro exitoso');
+        // Guardar el usuario en el localStorage
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        users.push({ name, email, password });
+        localStorage.setItem('users', JSON.stringify(users));
+
+        this.registrationSuccess = true;
+        this.registerForm.reset();
       } else {
         alert('Las contraseñas no coinciden');
       }

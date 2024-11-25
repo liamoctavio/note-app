@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';  // Importar el Router
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,9 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   loginFailed = false; // Para mostrar un mensaje de error si las credenciales no son válidas
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -18,30 +21,25 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
-  onSubmit(): void {
-    if (this.loginForm.valid) {
-      const formValue = this.loginForm.value;
+  login(): void {
+    if (this.loginForm.invalid) {
+      alert('Por favor, completa todos los campos.');
+      return;
+    }
 
-      // Obtener el usuario almacenado en LocalStorage
-      const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+    const { email, password } = this.loginForm.value;
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
 
-      // Validar las credenciales
-      if (
-        storedUser &&
-        storedUser.email === formValue.email &&
-        storedUser.password === formValue.password
-      ) {
-        console.log('Inicio de sesión exitoso');
-        // Puedes redirigir al usuario a otra página
-        this.loginFailed = false;
-        // Aquí podrías guardar alguna variable en localStorage para indicar que el usuario está autenticado
-        localStorage.setItem('isLoggedIn', 'true');
-      } else {
-        console.log('Credenciales incorrectas');
-        this.loginFailed = true; // Mostrar mensaje de error
-      }
+    // Verificar las credenciales
+    const user = users.find((user: any) => user.email === email && user.password === password);
+
+    if (user) {
+      localStorage.setItem('currentUser', email); // Guardar el usuario actual
+      alert('Inicio de sesión exitoso');
+      this.router.navigate(['/todo']); // Redirigir a la página de tareas
     } else {
-      console.log('Formulario inválido');
+      alert('Correo o contraseña incorrectos');
     }
   }
+  
 }
