@@ -66,16 +66,22 @@
                   placeholder="Ingrese su contraseña"
                 />
                 <!-- Mensajes de error para la contraseña -->
-              <div *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched" class="text-danger">
-                La contraseña es obligatoria.
+                <div *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched" class="text-danger">
+                  La contraseña es obligatoria.
+                </div>
+                <div *ngIf="registerForm.get('password')?.errors?.['minlength'] && registerForm.get('password')?.touched" class="text-danger">
+                  La contraseña debe tener al menos 6 caracteres.
+                </div>
+                <div *ngIf="registerForm.get('password')?.errors?.['hasUpperAndLowerCase'] && registerForm.get('password')?.touched" class="text-danger">
+                  La contraseña debe contener al menos una mayúscula y una minúscula.
+                </div>
+                <div *ngIf="registerForm.get('password')?.errors?.['hasNumber'] && registerForm.get('password')?.touched" class="text-danger">
+                  La contraseña debe contener al menos un número.
+                </div>
+                <div *ngIf="registerForm.get('password')?.errors?.['hasSpecialCharacter'] && registerForm.get('password')?.touched" class="text-danger">
+                  La contraseña debe contener al menos un carácter especial.
+                </div>
               </div>
-              <div *ngIf="registerForm.get('password')?.errors?.['minlength'] && registerForm.get('password')?.touched" class="text-danger">
-                La contraseña debe tener al menos 6 caracteres.
-              </div>
-              <div *ngIf="registerForm.get('password')?.errors?.['pattern'] && registerForm.get('password')?.touched" class="text-danger">
-                La contraseña debe contener al menos una mayúscula, una minúscula, un número y un carácter especial.
-              </div>
-            </div>
   
               <!-- Confirmar Contraseña -->
               <div class="mb-3">

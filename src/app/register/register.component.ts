@@ -25,7 +25,10 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.pattern('^[a-zA-Z ]*$')]],
       email: ['', [Validators.required, Validators.email, forbiddenEmailDomain(['forbidden.com', 'test.com'])]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(6),
+        hasNumberValidator(),
+        hasUpperAndLowerCaseValidator(),
+        hasSpecialCharacterValidator()]],
       confirmPassword: ['', [Validators.required]]
     },
     {
@@ -82,5 +85,52 @@ export function forbiddenEmailDomain(forbiddenDomains: string[]): ValidatorFn {
       return { forbiddenEmailDomain: true };
     }
     return null; // El correo es válido.
+  };
+}
+// Validadores de tamaño de contraseña
+export function passwordLengthValidator(minLength: number, maxLength: number): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    if (value && (value.length < minLength || value.length > maxLength)) {
+      return { passwordLength: `La contraseña debe tener entre ${minLength} y ${maxLength} caracteres.` };
+    }
+    return null;
+  };
+}
+
+// Validadores de contraseña debe contar con un numero
+export function hasNumberValidator() {
+  return (control: AbstractControl) => {
+    const value = control.value;
+    if (/\d/.test(value)) {
+      return null;
+    }
+    return { hasNumber: true };
+  };
+}
+
+// Validadores de contraseña debe contar con una letra mayuscula y minuscula
+// Validador personalizado para verificar que la contraseña contenga al menos una mayúscula y una minúscula
+export function hasUpperAndLowerCaseValidator() {
+  return (control: AbstractControl) => {
+    const value = control.value;
+    const hasUpperCase = /[A-Z]/.test(value);
+    const hasLowerCase = /[a-z]/.test(value);
+    if (hasUpperCase && hasLowerCase) {
+      return null;
+    }
+    return { hasUpperAndLowerCase: true };
+  };
+}
+
+
+// Validadores de contraseña debe contar con un caracter especial
+export function hasSpecialCharacterValidator() {
+  return (control: AbstractControl) => {
+    const value = control.value;
+    if (/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+      return null;
+    }
+    return { hasSpecialCharacter: true };
   };
 }
