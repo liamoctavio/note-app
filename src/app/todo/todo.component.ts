@@ -14,7 +14,7 @@ export class TodoComponent  {
   filter: 'all' | 'completed' | 'pending' = 'all'; // Opciones: 'all', 'completed', 'pending'
   taskContent: string = ''; // Contenido de la tarea
   tasks: { id: number, content: string, completed: boolean, editing: boolean }[] = []; // Lista de tareas
-
+  
   constructor() {
     this.loadTasks();
   }

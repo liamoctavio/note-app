@@ -15,10 +15,22 @@
                   formControlName="name"
                   placeholder="Ingrese su nombre"
                 />
-                <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" class="text-danger">
-                  El nombre es obligatorio.
-                </div>
-              </div>
+                <!-- Mensajes de error para el nombre -->
+                <div *ngIf="registerForm.get('name')?.errors?.['required'] && registerForm.get('name')?.touched" class="text-danger">
+                    El nombre es obligatorio.
+                  </div>
+                  <div *ngIf="registerForm.get('name')?.errors?.['minlength'] && registerForm.get('name')?.touched" class="text-danger">
+                    El nombre debe tener al menos 3 caracteres.
+                  </div>
+                  <div *ngIf="registerForm.get('name')?.errors?.['maxlength'] && registerForm.get('name')?.touched" class="text-danger">
+                    El nombre no puede tener más de 50 caracteres.
+                  </div>
+                  <div *ngIf="registerForm.get('name')?.errors?.['pattern'] && registerForm.get('name')?.touched" class="text-danger">
+                    El nombre solo puede contener letras y espacios.
+                  </div>
+              
+            
+            </div>
   
               <!-- Correo Electrónico -->
               <div class="mb-3">
@@ -30,9 +42,17 @@
                   formControlName="email"
                   placeholder="Ingrese su correo electrónico"
                 />
-                <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-danger">
-                  El correo electrónico no es válido.
-                </div>
+                <!-- Mensajes de error para el correo -->
+              <div *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.touched" class="text-danger">
+                El correo electrónico es obligatorio.
+              </div>
+              <div *ngIf="registerForm.get('email')?.errors?.['email'] && registerForm.get('email')?.touched" class="text-danger">
+                El correo electrónico no es válido.
+              </div>
+              <div *ngIf="registerForm.get('email')?.errors?.['forbiddenEmail'] && registerForm.get('email')?.touched" class="text-danger">
+                Este dominio de correo no está permitido.
+              </div>
+                
               </div>
   
               <!-- Contraseña -->
@@ -45,10 +65,17 @@
                   formControlName="password"
                   placeholder="Ingrese su contraseña"
                 />
-                <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-danger">
-                  La contraseña debe tener al menos 6 caracteres.
-                </div>
+                <!-- Mensajes de error para la contraseña -->
+              <div *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.touched" class="text-danger">
+                La contraseña es obligatoria.
               </div>
+              <div *ngIf="registerForm.get('password')?.errors?.['minlength'] && registerForm.get('password')?.touched" class="text-danger">
+                La contraseña debe tener al menos 6 caracteres.
+              </div>
+              <div *ngIf="registerForm.get('password')?.errors?.['pattern'] && registerForm.get('password')?.touched" class="text-danger">
+                La contraseña debe contener al menos una mayúscula, una minúscula, un número y un carácter especial.
+              </div>
+            </div>
   
               <!-- Confirmar Contraseña -->
               <div class="mb-3">
@@ -60,8 +87,12 @@
                   formControlName="confirmPassword"
                   placeholder="Confirme su contraseña"
                 />
-                <div *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched" class="text-danger">
-                  Debes confirmar tu contraseña.
+                <!-- Mensajes de error para confirmar contraseña -->
+                <div *ngIf="registerForm.get('confirmPassword')?.errors?.['required'] && registerForm.get('confirmPassword')?.touched" class="text-danger">
+                    La confirmación de la contraseña es obligatoria.
+                </div>
+                <div *ngIf="registerForm.errors?.['passwordsMismatch'] && registerForm.get('confirmPassword')?.touched" class="text-danger">
+                    Las contraseñas no coinciden.
                 </div>
               </div>
   

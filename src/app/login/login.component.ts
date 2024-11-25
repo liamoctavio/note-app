@@ -47,5 +47,11 @@ export class LoginComponent implements OnInit {
       alert('Correo o contraseña incorrectos');
     }
   }
+
+  onForgotPassword(): void {
+    // Redirige a la página de recuperación de contraseña
+    this.router.navigate(['/forgot-password']); // Asegúrate de tener configurada esta ruta.
+  }
+  
   
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+
 
 
 
@@ -21,11 +23,22 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.pattern('^[a-zA-Z ]*$')]],
+      email: ['', [Validators.required, Validators.email, forbiddenEmailDomain(['forbidden.com', 'test.com'])]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
-    });
+    },
+    {
+      validators: this.passwordsMatchValidator
+    }
+  );
+  }
+
+  passwordsMatchValidator(form: AbstractControl) {
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('confirmPassword')?.value;
+  
+    return password === confirmPassword ? null : { passwordsMismatch: true };
   }
 
   onSubmit(): void {
@@ -55,4 +68,19 @@ export class RegisterComponent implements OnInit {
       }
   }
 
+}
+
+// Validador personalizado para prohibir ciertos dominios de correo
+export function forbiddenEmailDomain(forbiddenDomains: string[]): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const email = control.value;
+    if (!email) {
+      return null; // Si el campo está vacío, no valida aún.
+    }
+    const domain = email.split('@')[1];
+    if (forbiddenDomains.includes(domain)) {
+      return { forbiddenEmailDomain: true };
+    }
+    return null; // El correo es válido.
+  };
 }

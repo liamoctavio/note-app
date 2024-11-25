@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { TodoComponent } from './todo.component';
 
 describe('TodoComponent', () => {
@@ -8,7 +8,8 @@ describe('TodoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TodoComponent]
+      declarations: [TodoComponent],
+      imports: [ReactiveFormsModule]
     })
     .compileComponents();
 
@@ -20,4 +21,7 @@ describe('TodoComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+  
 });

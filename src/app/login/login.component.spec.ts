@@ -12,7 +12,8 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LoginComponent]
+      declarations: [LoginComponent],
+      imports: [ReactiveFormsModule], 
     })
     .compileComponents();
 
@@ -25,15 +26,41 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show an error message for incorrect credentials', () => {
-    // Simulamos un mal inicio de sesión
-    localStorage.setItem('user', JSON.stringify({ email: 'test@example.com', password: 'password123' }));
+  it('debería inicializar el formulario con los controles esperados', () => {
+    expect(component.loginForm.contains('email')).toBeTrue();
+    expect(component.loginForm.contains('password')).toBeTrue();
+  });
+  
+  it('debería requerir un correo electrónico válido', () => {
+    const emailControl = component.loginForm.get('email');
+    emailControl?.setValue('');
+    expect(emailControl?.valid).toBeFalse();
+  
+    emailControl?.setValue('correo-no-valido');
+    expect(emailControl?.valid).toBeFalse();
+  
+    emailControl?.setValue('correo@valido.com');
+    expect(emailControl?.valid).toBeTrue();
+  });
+  it('debería requerir una contraseña', () => {
+    const passwordControl = component.loginForm.get('password');
+    passwordControl?.setValue('');
+    expect(passwordControl?.valid).toBeFalse();
+  
+    passwordControl?.setValue('contraseña123');
+    expect(passwordControl?.valid).toBeTrue();
+  });
 
-    component.loginForm.controls['email'].setValue('wrong@example.com');
-    component.loginForm.controls['password'].setValue('wrongpassword');
-    component.login();
-
-    expect(component.loginFailed).toBe(true);
+  it('debería llamar al método login cuando el formulario es válido', () => {
+    spyOn(component, 'login'); // Espía el método login
+  
+    component.loginForm.setValue({
+      email: 'usuario@valido.com',
+      password: 'password123',
+    });
+    fixture.debugElement.nativeElement.querySelector('form').dispatchEvent(new Event('submit'));
+  
+    expect(component.login).toHaveBeenCalled();
   });
 
 

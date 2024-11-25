@@ -21,6 +21,7 @@ export class UserService {
     this.isLoggedInSubject.next(!!currentUser);  // Actualiza el estado basado en la presencia del usuario
   }
 
+
   // Iniciar sesión
   login(username: string): void {
     localStorage.setItem('currentUser', username);

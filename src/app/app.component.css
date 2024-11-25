@@ -1,20 +1,16 @@
-/* Asegura que el contenedor principal ocupe toda la altura de la pantalla */
+/*/* Asegura que el contenedor principal ocupe toda la altura de la pantalla 
 body, html {
     height: 100%;
     margin: 0;
   }
   
-  /* Contenedor principal que usa Flexbox para organizar el contenido */
   .app-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Asegura que el contenedor ocupe al menos el 100% de la altura */
-  }
+    min-height: 100vh;
   
-  /* El contenido ocupa el espacio restante */
   .content {
-    flex-grow: 1; /* Hace que el contenido ocupe el espacio disponible */
-  }
-  
+    flex-grow: 1;
+  */
   
   

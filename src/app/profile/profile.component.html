@@ -1,7 +1,7 @@
 <div class="profile-container">
     <div class="profile-form-container">
       <h2>Editar Perfil</h2>
-      <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+      <form *ngIf="profileForm" [formGroup]="profileForm" (ngSubmit)="saveProfile()">
         <div class="mb-3">
           <label for="name" class="form-label">Nombre</label>
           <input id="name" class="form-control" formControlName="name" [attr.disabled]="!isEditing ? true : null" />
