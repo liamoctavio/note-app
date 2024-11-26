@@ -37,3 +37,24 @@ Copiar código
 ng serve
 ```
 La aplicación estará disponible en http://localhost:4200.
+
+## Uso
+Registro de usuario:
+Si eres un usuario nuevo, dirígete a la página de registro, ingresa tu nombre, correo electrónico y una contraseña segura. Haz clic en "Registrar" para crear tu cuenta.
+
+Iniciar sesión:
+Después de registrarte, puedes iniciar sesión con tu correo electrónico y contraseña. El sistema verificará tus credenciales y te redirigirá al menú principal.
+
+Agregar tareas:
+En la pantalla principal, haz clic en "Agregar tarea", ingresa el título y descripción de la tarea, y luego haz clic en "Guardar".
+
+Editar o eliminar tareas:
+Puedes editar cualquier tarea haciendo clic en el icono de edición junto a ella, o eliminarla con el ícono de la papelera.
+
+Marcar tarea como completada:
+Puedes marcar una tarea como completada haciendo clic en la casilla junto a ella.
+
+Ver y editar tu perfil:
+Haz clic en "Mi perfil" para ver tu información personal y modificarla si es necesario.
+
+
