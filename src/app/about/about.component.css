@@ -1,0 +1,15 @@
+.about-background {
+  background-image: url("/Assets/about.avif"); /* Ruta de la imagen de fondo */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh; /* Asegura que cubra toda la altura de la pantalla */
+  color: white; /* Cambia el color del texto para mejorar la legibilidad */
+  padding: 20px; /* Añade un poco de padding para que el texto no esté pegado a los bordes */
+}
+
+.about-background h1,
+.about-background h2,
+.about-background p {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Añade sombra al texto para mejorar la legibilidad */
+}

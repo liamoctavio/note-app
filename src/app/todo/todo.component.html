@@ -1,126 +1,80 @@
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Gestión de Tareas</h2>
-    <div *ngIf="successMessage" class="alert alert-success" role="alert">
-        {{ successMessage }}
+  <h2 class="text-center mb-4">Gestión de Tareas</h2>
+  <div *ngIf="successMessage" class="alert alert-success" role="alert">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Formulario para agregar tareas -->
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="input-group mb-3">
+        <input type="text" [(ngModel)]="taskContent" class="form-control" placeholder="Nueva tarea" />
+        <button class="btn btn-success" (click)="addTask()">Agregar</button>
       </div>
-      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
-        {{ errorMessage }}
-      </div>
-      
-    <!-- Formulario para agregar tareas -->
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="input-group mb-3">
-          <input
-            type="text"
-            [(ngModel)]="taskContent"
-            class="form-control"
-            placeholder="Nueva tarea"
-          />
-          <button class="btn btn-success" (click)="addTask()">Agregar</button>
-        </div>
-      </div>
-    </div>
-  
-    <!-- Filtros -->
-    <div class="row justify-content-center mb-3">
-      <div class="col-md-8 text-center">
-        <div class="btn-group">
-          <button 
-            class="btn btn-outline-primary"
-            [class.active]="filter === 'all'"
-            (click)="filter = 'all'"
-          >
-            Todas
-          </button>
-          <button 
-            class="btn btn-outline-primary"
-            [class.active]="filter === 'completed'"
-            (click)="filter = 'completed'"
-          >
-            Completadas
-          </button>
-          <button 
-            class="btn btn-outline-primary"
-            [class.active]="filter === 'pending'"
-            (click)="filter = 'pending'"
-          >
-            Pendientes
-          </button>
-        </div>
-      </div>
-    </div>
-  
-    <!-- Lista de tareas -->
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <ul class="list-group">
-          <li
-            *ngFor="let task of filteredTasks"
-            class="list-group-item d-flex justify-content-between align-items-center"
-            [ngClass]="{ 'list-group-item-success': task.completed }"
-          >
-            <!-- Checkbox -->
-            <div class="form-check d-flex align-items-center me-3">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                (change)="toggleTaskCompletion(task.id)"
-                [checked]="task.completed"
-              />
-            </div>
-  
-            <!-- Vista o Edición -->
-            <span 
-              [class.text-decoration-line-through]="task.completed"
-              *ngIf="!task.editing"
-              class="flex-grow-1"
-            >
-              {{ task.content }}
-            </span>
-            <input
-              *ngIf="task.editing"
-              [(ngModel)]="task.content"
-              class="form-control form-control-sm flex-grow-1"
-            />
-  
-            <!-- Botones -->
-            <div class="d-flex gap-2">
-              <button
-                *ngIf="!task.editing"
-                class="btn btn-warning btn-sm"
-                (click)="task.editing = true"
-              >
-                Editar
-              </button>
-              <button
-                *ngIf="task.editing"
-                class="btn btn-primary btn-sm"
-                (click)="editTask(task.id, task.content); task.editing = false"
-              >
-                Guardar
-              </button>
-              <button
-                class="btn btn-danger btn-sm"
-                (click)="removeTask(task.id)"
-              >
-                Eliminar
-              </button>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  
-    <!-- Botón para guardar lista de tareas -->
-    <div class="text-center mt-4">
-      <button
-        class="btn btn-primary"
-        [disabled]="tasks.length === 0"
-        (click)="saveTasks()"
-      >
-        Guardar Lista de Tareas
-      </button>
     </div>
   </div>
-  
+
+  <!-- Filtros -->
+  <div class="row justify-content-center mb-3">
+    <div class="col-md-8 text-center">
+      <div class="btn-group">
+        <button class="btn btn-outline-primary" [class.active]="filter === 'all'" (click)="filter = 'all'">
+          Todas
+        </button>
+        <button class="btn btn-outline-primary" [class.active]="filter === 'completed'" (click)="filter = 'completed'">
+          Completadas
+        </button>
+        <button class="btn btn-outline-primary" [class.active]="filter === 'pending'" (click)="filter = 'pending'">
+          Pendientes
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de tareas -->
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <ul class="list-group">
+        <li *ngFor="let task of filteredTasks" class="list-group-item d-flex justify-content-between align-items-center"
+          [ngClass]="{ 'list-group-item-success': task.completed }">
+          <!-- Checkbox -->
+          <div class="form-check d-flex align-items-center me-3">
+            <input type="checkbox" class="form-check-input" (change)="toggleTaskCompletion(task.id)"
+              [checked]="task.completed" />
+          </div>
+
+          <!-- Vista o Edición -->
+          <span [class.text-decoration-line-through]="task.completed" *ngIf="!task.editing" class="flex-grow-1">
+            {{ task.content }}
+          </span>
+          <input *ngIf="task.editing" [(ngModel)]="task.content" class="form-control form-control-sm flex-grow-1" />
+
+          <!-- Botones -->
+          <div class="d-flex gap-2">
+            <button *ngIf="!task.editing" class="btn btn-warning btn-sm" (click)="task.editing = true">
+              Editar
+            </button>
+            <button *ngIf="task.editing" class="btn btn-primary btn-sm"
+              (click)="editTask(task.id, task.content); task.editing = false">
+              Guardar
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteTask(task.id)">
+              Eliminar
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- Botón para guardar lista de tareas -->
+  <div class="text-center mt-4">
+    <button class="btn btn-primary" [disabled]="tasks.length === 0" (click)="saveTasks()">
+      Guardar Lista de Tareas
+    </button>
+  </div>
+</div>
