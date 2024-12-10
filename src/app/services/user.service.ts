@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-
-
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
@@ -18,9 +15,8 @@ export class UserService {
   // Verificar si el usuario está logeado
   checkLoginStatus(): void {
     const currentUser = localStorage.getItem('currentUser');
-    this.isLoggedInSubject.next(!!currentUser);  // Actualiza el estado basado en la presencia del usuario
+    this.isLoggedInSubject.next(!!currentUser); // Actualiza el estado basado en la presencia del usuario
   }
-
 
   // Iniciar sesión
   login(username: string): void {
@@ -43,14 +39,15 @@ export class UserService {
       return;
     }
 
-    const userIndex = users.findIndex((user: any) => user.email === currentUser); // Cambia "username" a "email" si usas email
+    const userIndex = users.findIndex(
+      (user: any) => user.email === currentUser
+    ); // Cambia "username" a "email" si usas email
 
     if (userIndex !== -1) {
-       // Actualiza los datos del usuario con el nuevo nombre, email y contraseña
+      // Actualiza los datos del usuario con el nuevo nombre, email y contraseña
       users[userIndex] = { ...users[userIndex], ...value };
       localStorage.setItem('users', JSON.stringify(users));
       localStorage.setItem('currentUser', value.email); // Actualizar el email del usuario logueado
-      alert('Datos actualizados correctamente');
     }
   }
 

@@ -3,13 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-
-
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
@@ -17,36 +14,57 @@ export class RegisterComponent implements OnInit {
   registrationSuccess: boolean = false;
   errorMessage: string = '';
 
-
-
   constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.pattern('^[a-zA-Z ]*$')]],
-      email: ['', [Validators.required, Validators.email, forbiddenEmailDomain(['forbidden.com', 'test.com'])]],
-      password: ['', [Validators.required, Validators.minLength(6),
-        hasNumberValidator(),
-        hasUpperAndLowerCaseValidator(),
-        hasSpecialCharacterValidator()]],
-      confirmPassword: ['', [Validators.required]]
-    },
-    {
-      validators: this.passwordsMatchValidator
-    }
-  );
+    this.registerForm = this.fb.group(
+      {
+        name: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(50),
+            Validators.pattern('^[a-zA-Z ]*$'),
+          ],
+        ],
+        email: [
+          '',
+          [
+            Validators.required,
+            Validators.email,
+            forbiddenEmailDomain(['forbidden.com', 'test.com']),
+          ],
+        ],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(6),
+            hasNumberValidator(),
+            hasUpperAndLowerCaseValidator(),
+            hasSpecialCharacterValidator(),
+          ],
+        ],
+        confirmPassword: ['', [Validators.required]],
+      },
+      {
+        validators: this.passwordsMatchValidator,
+      }
+    );
   }
 
   passwordsMatchValidator(form: AbstractControl) {
     const password = form.get('password')?.value;
     const confirmPassword = form.get('confirmPassword')?.value;
-  
+
     return password === confirmPassword ? null : { passwordsMismatch: true };
   }
 
   onSubmit(): void {
-    if (this.registerForm.valid) { 
-      const { name, email, password, confirmPassword } = this.registerForm.value;
+    if (this.registerForm.valid) {
+      const { name, email, password, confirmPassword } =
+        this.registerForm.value;
 
       if (password === confirmPassword) {
         // Guardar el usuario en el localStorage
@@ -62,15 +80,14 @@ export class RegisterComponent implements OnInit {
       } else {
         this.errorMessage = 'El correo electrónico ya está registrado';
         this.registrationSuccess = false;
-        setTimeout(() => this.errorMessage = '', 3000); // Mensaje desaparece después de 3 segundos
+        setTimeout(() => (this.errorMessage = ''), 3000); // Mensaje desaparece después de 3 segundos
       }
     } else {
       this.errorMessage = 'Por favor, completa todos los campos correctamente';
       this.registrationSuccess = false;
-      setTimeout(() => this.errorMessage = '', 3000); // Mensaje desaparece después de 3 segundos
-      }
+      setTimeout(() => (this.errorMessage = ''), 3000); // Mensaje desaparece después de 3 segundos
+    }
   }
-
 }
 
 // Validador personalizado para prohibir ciertos dominios de correo
@@ -88,11 +105,16 @@ export function forbiddenEmailDomain(forbiddenDomains: string[]): ValidatorFn {
   };
 }
 // Validadores de tamaño de contraseña
-export function passwordLengthValidator(minLength: number, maxLength: number): ValidatorFn {
+export function passwordLengthValidator(
+  minLength: number,
+  maxLength: number
+): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = control.value;
     if (value && (value.length < minLength || value.length > maxLength)) {
-      return { passwordLength: `La contraseña debe tener entre ${minLength} y ${maxLength} caracteres.` };
+      return {
+        passwordLength: `La contraseña debe tener entre ${minLength} y ${maxLength} caracteres.`,
+      };
     }
     return null;
   };
@@ -123,12 +145,11 @@ export function hasUpperAndLowerCaseValidator() {
   };
 }
 
-
 // Validadores de contraseña debe contar con un caracter especial
 export function hasSpecialCharacterValidator() {
   return (control: AbstractControl) => {
     const value = control.value;
-    if (/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+    if (/[!@#$%^&*(),.?":{}|<>/+\-_]/.test(value)) {
       return null;
     }
     return { hasSpecialCharacter: true };

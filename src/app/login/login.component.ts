@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
       }, 1000);
     } else {
       this.errorMessage = 'Correo o contraseña incorrectos';
-      alert('Correo o contraseña incorrectos');
     }
   }
 

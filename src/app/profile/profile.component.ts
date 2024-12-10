@@ -5,18 +5,15 @@ import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrl: './profile.component.css',
 })
-export class ProfileComponent implements OnInit{
-
+export class ProfileComponent implements OnInit {
   profileForm!: FormGroup;
-  isEditing: boolean = false;  // Controla si el formulario está en modo edición
+  isEditing: boolean = false; // Controla si el formulario está en modo edición
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
 
-
-  constructor(
-    private fb: FormBuilder,
-    private userService: UserService
-  ) {}
+  constructor(private fb: FormBuilder, private userService: UserService) {}
 
   ngOnInit(): void {
     // Recuperar datos del usuario actual desde el localStorage
@@ -26,9 +23,15 @@ export class ProfileComponent implements OnInit{
       // Inicializar el formulario con los datos del usuario
       this.profileForm = this.fb.group({
         name: [{ value: user.name, disabled: true }, [Validators.required]],
-        email: [{ value: user.email, disabled: true }, [Validators.required, Validators.email]],
-        password: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(6)]],
-        confirmPassword: [{ value: '', disabled: true }, [Validators.required]]
+        email: [
+          { value: user.email, disabled: true },
+          [Validators.required, Validators.email],
+        ],
+        password: [
+          { value: '', disabled: true },
+          [Validators.required, Validators.minLength(6)],
+        ],
+        confirmPassword: [{ value: '', disabled: true }, [Validators.required]],
       });
     }
   }
@@ -57,14 +60,14 @@ export class ProfileComponent implements OnInit{
       if (password === confirmPassword) {
         // Actualizar la información del usuario
         this.userService.saveUserData('email', { name, email, password });
-        alert('Perfil actualizado con éxito');
-         // Bloquear los campos después de guardar
-         this.toggleEdit(); // Deshabilitar el formulario después de guardar
+        this.successMessage = 'Perfil actualizado con éxito';
+        // Bloquear los campos después de guardar
+        this.toggleEdit(); // Deshabilitar el formulario después de guardar
       } else {
-        alert('Las contraseñas no coinciden');
+        this.errorMessage = 'Las contraseñas no coinciden';
       }
     } else {
-      alert('Por favor, completa todos los campos correctamente.');
+      this.errorMessage = 'Por favor, completa todos los campos correctamente.';
     }
-  }    
+  }
 }

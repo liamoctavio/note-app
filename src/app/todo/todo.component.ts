@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { TodoService } from '../services/todo.service';
 
+/**
+ * Componente para gestionar las tareas del usuario.
+ */
+
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
@@ -26,9 +30,27 @@ export class TodoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTasks();
+    if (this.tasks.length === 0) {
+      this.getTasks();
+    }
   }
 
   getTasks(): void {
+    this.todoService.getTasks().subscribe(
+      (data) => {
+        if (this.tasks.length === 0) {
+          console.log('Datos cargados:', data); // Verificar datos en la consola
+          this.tasks = data;
+        }
+      },
+      (error) => {
+        console.error('Error al cargar las tareas:', error); // Verificar errores en la consola
+        this.errorMessage = 'Error al cargar las tareas';
+      }
+    );
+  }
+
+  /*getTasks(): void {
     this.todoService.getTasks().subscribe(
       (data) => {
         console.log('Datos cargados:', data); // Verificar datos en la consola
@@ -39,10 +61,21 @@ export class TodoComponent implements OnInit {
         this.errorMessage = 'Error al cargar las tareas';
       }
     );
-  }
+  }*/
 
-  // Cargar las tareas del usuario desde el localStorage
+  /**
+   * Carga las tareas del usuario actual desde el localStorage.
+   */
   loadTasks(): void {
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+      const tasks = JSON.parse(
+        localStorage.getItem(currentUser + '_tasks') || '[]'
+      );
+      this.tasks = tasks;
+    }
+  }
+  /*loadTasks(): void {
     const currentUser = localStorage.getItem('currentUser');
     if (currentUser) {
       const tasks = JSON.parse(
@@ -57,7 +90,7 @@ export class TodoComponent implements OnInit {
       this.errorMessage = 'Por favor inicie sesión para cargar las tareas';
       setTimeout(() => (this.errorMessage = ''), 3000); // Mensaje desaparece después de 3 segundos
     }
-  }
+  }*/
 
   // Agregar una nueva tarea
   addTask(): void {
