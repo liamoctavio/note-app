@@ -91,7 +91,7 @@ export class RegisterComponent implements OnInit {
 }
 
 // Validador personalizado para prohibir ciertos dominios de correo
-export function forbiddenEmailDomain(forbiddenDomains: string[]): ValidatorFn {
+/*export function forbiddenEmailDomain(forbiddenDomains: string[]): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const email = control.value;
     if (!email) {
@@ -103,7 +103,22 @@ export function forbiddenEmailDomain(forbiddenDomains: string[]): ValidatorFn {
     }
     return null; // El correo es válido.
   };
+}*/
+
+// Validador de dominio de correo prohibido
+export function forbiddenEmailDomain(forbiddenDomains: string[]) {
+  return (control: AbstractControl) => {
+    const email = control.value;
+    if (email) {
+      const domain = email.split('@')[1];
+      if (forbiddenDomains.includes(domain)) {
+        return { forbiddenDomain: true };
+      }
+    }
+    return null;
+  };
 }
+
 // Validadores de tamaño de contraseña
 export function passwordLengthValidator(
   minLength: number,
